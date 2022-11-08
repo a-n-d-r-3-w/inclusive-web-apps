@@ -22,6 +22,7 @@
   </head>
   <body>
     <h1>Create Account</h1>
+    <p style="color: #e31c3d" id="error"></p>
     <form method="POST" action="/api/users">
       <p>
         Your username must be 4 to 16 characters long. Each character must be a
@@ -41,5 +42,11 @@
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
+    <script>
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const createAccountError = urlSearchParams.get("error");
+      const errorElement = document.getElementById("error");
+      errorElement.textContent = createAccountError;
+    </script>
   </body>
 </html>
