@@ -5,6 +5,8 @@ const compression = require("compression");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+const users = require("./routers/users");
+
 const app = express();
 // Disable app.use(helmet.contentSecurityPolicy()); because it prevents the page from rendering on production builds.
 app.use(helmet.dnsPrefetchControl());
@@ -31,9 +33,7 @@ app.use(limiter);
 app.use(compression());
 app.use(express.static("public"));
 
-app.post("/api/users", (req, res) => {
-  res.send("hi");
-});
+app.use("/api/users", users);
 
 const options = {
   key: fs.readFileSync("localhost-key.pem"),
