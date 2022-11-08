@@ -4,9 +4,7 @@ const fs = require("fs");
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.static("public"));
 
 const options = {
   key: fs.readFileSync("localhost-key.pem"),
