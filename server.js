@@ -1,9 +1,10 @@
 const express = require("express");
 const https = require("https");
 const fs = require("fs");
+const compression = require("compression");
 
 const app = express();
-
+app.use(compression());
 app.use(express.static("public"));
 
 const options = {
