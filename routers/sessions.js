@@ -43,8 +43,7 @@ router.post("/", async (req, res) => {
       secure: true,
     });
 
-    // Redirect user to their home page.
-    res.send("Logged in.");
+    res.redirect(StatusCodes.SEE_OTHER, `/about-others.html`);
   } catch (error) {
     const encodedErrorMessage = encodeURIComponent(error.message); // To replace spaces with %20, for example.
     res.redirect(
