@@ -23,6 +23,7 @@
   <body>
     <h1>Log In</h1>
     <p style="color: #e31c3d" id="error"></p>
+    <p id="just-created-account"></p>
     <form method="POST" action="/api/sessions">
       <p>
         <label> Username <input name="username" type="text" /> </label>
@@ -42,6 +43,14 @@
       const createAccountError = urlSearchParams.get("error");
       const errorElement = document.getElementById("error");
       errorElement.textContent = createAccountError;
+
+      const justCreatedAccount =
+        urlSearchParams.get("just-created-account") === "true";
+      if (justCreatedAccount) {
+        const username = urlSearchParams.get("username");
+        document.getElementById("just-created-account").textContent =
+          "Account created for " + username + ". Please log in below.";
+      }
     </script>
   </body>
 </html>
