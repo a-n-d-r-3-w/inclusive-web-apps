@@ -30,12 +30,18 @@ router.post("/", async (req, res) => {
     const { username, password } = req.body;
     await validateUsernameAndPassword(username, password);
 
+    // Delete other sessions for this username from the database.
+    const sql1 = `DELETE FROM inclusive_web_apps.sessions WHERE username = ?;`;
+    const args1 = [username];
+    await connectQueryEnd(sql1, args1);
+
     // Create session key.
     const sessionId = crypto.randomBytes(32).toString("hex");
+
     // Store session in database.
-    const sql = `INSERT INTO inclusive_web_apps.sessions (session_id, username) VALUES (?, ?);`;
-    const args = [sessionId, username];
-    await connectQueryEnd(sql, args);
+    const sql2 = `INSERT INTO inclusive_web_apps.sessions (session_id, username) VALUES (?, ?);`;
+    const args2 = [sessionId, username];
+    await connectQueryEnd(sql2, args2);
     // Set response cookie.
     res.cookie("sessionId", sessionId, {
       httpOnly: true,
