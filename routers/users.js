@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     await createUser(username, password);
     res.redirect(
       StatusCodes.SEE_OTHER,
-      `/create-account.html?success=true&username=${username}`
+      `/log-in.html?just-created-account=true&username=${username}`
     );
     return;
   } catch (error) {
