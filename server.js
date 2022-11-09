@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const users = require("./routers/users");
+const sessions = require("./routers/sessions");
 
 const app = express();
 // Disable app.use(helmet.contentSecurityPolicy()); because it prevents the page from rendering on production builds.
@@ -34,6 +35,7 @@ app.use(compression());
 app.use(express.static("public"));
 
 app.use("/api/users", users);
+app.use("/api/sessions", sessions);
 
 const options = {
   key: fs.readFileSync("localhost-key.pem"),
