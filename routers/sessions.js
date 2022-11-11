@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const connectQueryEnd = require("../connectQueryEnd");
 
 const router = express.Router();
-router.use(bodyParser.urlencoded());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const validateUsernameAndPassword = async (username, password) => {
   const sql = `SELECT hashed_password FROM inclusive_web_apps.users WHERE username=?;`;

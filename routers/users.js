@@ -4,7 +4,7 @@ const { StatusCodes } = require("http-status-codes");
 const { createUser } = require("./usersUtils");
 
 const router = express.Router();
-router.use(bodyParser.urlencoded());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const validateUsername = (username) => {
   if (username.length < 4 || username.length > 20) {
