@@ -1,15 +1,22 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const { StatusCodes } = require("http-status-codes");
-const bcrypt = require("bcrypt");
-const crypto = require("crypto");
-const connectQueryEnd = require("../connectQueryEnd");
 
 const router = express.Router();
-router.use(bodyParser.urlencoded());
 
-router.get("/", async (req, res) => {
-  res.send("hi");
+router.get("/people", async (req, res) => {
+  const people = [
+    {
+      personId: "1",
+      name: "Whoppers",
+      notes: "Notes on Whoppers",
+    },
+    {
+      personId: "2",
+      name: "Jackson",
+      notes: "Notes on Jackson",
+    },
+  ];
+  res.status(StatusCodes.OK).send(people);
 });
 
 module.exports = router;
