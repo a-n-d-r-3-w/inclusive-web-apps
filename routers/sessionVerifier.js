@@ -9,16 +9,18 @@ router.use(cookieParser());
 
 router.use(async (req, res, next) => {
   const sessionId = req.cookies.sessionId;
+  if (!sessionId) {
+    res.status(StatusCodes.UNAUTHORIZED);
+    return;
+  }
+
   // Verify if session ID exists in table.
   const sql = `SELECT * FROM inclusive_web_apps.sessions WHERE session_id=?;`;
   const args = [sessionId];
-  try {
-    const result = (await connectQueryEnd(sql, args))[0];
-    if (!result) {
-      throw new Error("Session not found.");
-    }
-  } catch {
+  const result = (await connectQueryEnd(sql, args))[0];
+  if (!result) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
+    return;
   }
   next();
 });
