@@ -29,7 +29,9 @@
     </footer>
     <script>
       (async () => {
-        await fetch("/api/about-others/people");
+        const response = await fetch("/api/about-others/people");
+        const people = await response.json();
+        console.log("people", people);
       })();
     </script>
   </body>
