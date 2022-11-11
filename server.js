@@ -9,6 +9,7 @@ const path = require("path");
 
 const users = require("./routers/users");
 const sessions = require("./routers/sessions");
+const sessionVerifier = require("./routers/sessionVerifier");
 const aboutOthers = require("./routers/aboutOthers");
 
 const app = express();
@@ -37,10 +38,7 @@ app.use(limiter);
 app.use(compression());
 app.use(express.static("public"));
 
-app.use("/api", (req, res, next) => {
-  // Authenticate here
-  next();
-});
+app.use("/api", sessionVerifier);
 app.use("/api/users", users);
 app.use("/api/sessions", sessions);
 app.use("/api/about-others", aboutOthers);
