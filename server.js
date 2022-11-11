@@ -35,6 +35,10 @@ app.use(limiter);
 app.use(compression());
 app.use(express.static("public"));
 
+app.use("/api", (req, res, next) => {
+  // Authenticate here
+  next();
+});
 app.use("/api/users", users);
 app.use("/api/sessions", sessions);
 app.use("/api/about-others", aboutOthers);
