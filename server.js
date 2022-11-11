@@ -38,9 +38,14 @@ app.use(limiter);
 app.use(compression());
 app.use(express.static("public"));
 
-app.use("/api", sessionVerifier);
+// Unprotected APIs go here.
 app.use("/api/users", users);
 app.use("/api/sessions", sessions);
+
+// Verify user session.
+app.use("/api", sessionVerifier);
+
+// Protected APIs go here.
 app.use("/api/about-others", aboutOthers);
 
 app.use((req, res) => {
