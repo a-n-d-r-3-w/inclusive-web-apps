@@ -4,6 +4,8 @@ const fs = require("fs");
 const compression = require("compression");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const { StatusCodes } = require("http-status-codes");
+const path = require("path");
 
 const users = require("./routers/users");
 const sessions = require("./routers/sessions");
@@ -42,6 +44,12 @@ app.use("/api", (req, res, next) => {
 app.use("/api/users", users);
 app.use("/api/sessions", sessions);
 app.use("/api/about-others", aboutOthers);
+
+app.use((req, res) => {
+  res
+    .status(StatusCodes.NOT_FOUND)
+    .sendFile(path.join(__dirname, "/public/not-found.html"));
+});
 
 const options = {
   key: fs.readFileSync("localhost-key.pem"),
