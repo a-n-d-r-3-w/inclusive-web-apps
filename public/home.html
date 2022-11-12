@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header style="display: flex; justify-content: flex-end">
+      <a href="/log-out.html">Log out</a>
+    </header>
+    <h1>Home</h1>
+    <p>
+      <a href="/about-others.html">About Others</a>
+    </p>
+    <p>
+      <a href="/good-habits.html">Good Habits</a>
+    </p>
+    <p>
+      <a href="/good-memories.html">Good Memories</a>
+    </p>
+    <p>
+      <a href="/meditation-timer.html">Meditation Timer</a>
+    </p>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+    <script>
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const createAccountError = urlSearchParams.get("error");
+      const errorElement = document.getElementById("error");
+      errorElement.textContent = createAccountError;
+    </script>
+  </body>
+</html>
