@@ -29,19 +29,19 @@ router.post("/people", async (req, res) => {
 });
 
 router.get("/people", async (req, res) => {
-  const people = [
-    {
-      personId: "1",
-      name: "Whoppers",
-      notes: "Notes on Whoppers",
-    },
-    {
-      personId: "2",
-      name: "Jackson",
-      notes: "Notes on Jackson",
-    },
-  ];
-  res.status(StatusCodes.OK).send(people);
+  const username = req.username;
+  const encryptionKey = req.encryptionKey;
+  const sql =
+    "SELECT * FROM inclusive_web_apps.about_others_people WHERE username=?;";
+  const args = [username];
+  const encryptedPeople = await connectQueryEnd(sql, args);
+  console.log("encryptedPeople: ", encryptedPeople);
+  const decryptedPeople = encryptedPeople.map((person) => ({
+    personId: person.person_id,
+    name: decrypt(person.encrypted_name, encryptionKey),
+    notes: decrypt(person.encrypted_notes, encryptionKey),
+  }));
+  res.status(StatusCodes.OK).send(decryptedPeople);
 });
 
 module.exports = router;
