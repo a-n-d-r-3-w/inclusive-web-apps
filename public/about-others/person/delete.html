@@ -19,7 +19,7 @@
         <a id="cancel">Cancel</a>
       </div>
       <div>
-        <button>Delete</button>
+        <button id="delete">Delete</button>
       </div>
     </div>
     <footer>
@@ -46,6 +46,12 @@
         const warningElement = document.getElementById("warning");
         warningElement.textContent =
           "Are you sure you want to delete your notes on " + person.name + "?";
+
+        // Attach callback to Delete button.
+        const deleteButton = document.getElementById("delete");
+        deleteButton.onclick = () => {
+          // Sent DELETE request to API.
+        };
       })();
     </script>
   </body>
