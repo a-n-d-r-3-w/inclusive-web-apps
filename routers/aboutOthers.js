@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const { encrypt, decrypt } = require("../encryptionUtils");
+const connectQueryEnd = require("../connectQueryEnd");
 
 const { StatusCodes } = require("http-status-codes");
 
@@ -18,6 +19,11 @@ router.post("/people", async (req, res) => {
   const encryptedNotes = encrypt(notes, encryptionKey);
 
   // Save to database.
+  const sql =
+    "INSERT INTO inclusive_web_apps.about_others_people (person_id, encrypted_name, encrypted_notes) VALUES (?, ?, ?);";
+  const personId = "temp";
+  const args = [personId, encryptedName, encryptedNotes];
+  await connectQueryEnd(sql, args);
   res.sendStatus(StatusCodes.CREATED);
 });
 
