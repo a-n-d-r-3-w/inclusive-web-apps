@@ -49,7 +49,13 @@
 
         // Attach callback to Delete button.
         const deleteButton = document.getElementById("delete");
-        deleteButton.onclick = () => {
+        deleteButton.onclick = async () => {
+          const response2 = await fetch(
+            `/api/about-others/person/${personId}`,
+            {
+              method: "DELETE",
+            }
+          );
           // Sent DELETE request to API.
         };
       })();
