@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Edit Person</h1>
-    <form method="PATCH" action="/api/about-others/person">
+    <form id="edit-form" method="POST">
       <p><label for="name">Name</label></p>
       <p style="display: flex">
         <input id="name" name="name" type="text" style="flex: auto" />
@@ -46,6 +46,10 @@
 
         const notesElement = document.getElementById("notes");
         notesElement.value = person.notes;
+
+        // Configure form action to POST to the specified person.
+        document.getElementById("edit-form").action =
+          "/api/about-others/person?person-id=" + personId;
       })();
     </script>
   </body>
