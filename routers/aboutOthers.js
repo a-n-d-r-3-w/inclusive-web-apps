@@ -1,7 +1,19 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+
 const { StatusCodes } = require("http-status-codes");
 
 const router = express.Router();
+router.use(bodyParser.urlencoded({ extended: true }));
+
+router.post("/people", async (req, res) => {
+  const name = req.body.name;
+  const notes = req.body.notes;
+  const encryptionKey = req.encryptionKey;
+  // Encrypt name and notes.
+  // Save to database.
+  res.sendStatus(StatusCodes.CREATED);
+});
 
 router.get("/people", async (req, res) => {
   const people = [
