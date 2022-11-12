@@ -11,7 +11,6 @@ const encrypt = (plaintext, encryptionKey) => {
   encryptedText += cipher.final("hex");
   // Prepend the encrypted text with the initialization vector so that it can be retrieved during the decryption process.
   const initializationVectorAsString = initializationVector.toString("hex");
-  console.log("initializationVectorAsString: ", initializationVectorAsString);
 
   return initializationVectorAsString + encryptedText;
 };

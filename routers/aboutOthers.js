@@ -17,17 +17,6 @@ router.post("/people", async (req, res) => {
   const encryptedName = encrypt(name, encryptionKey);
   const encryptedNotes = encrypt(notes, encryptionKey);
 
-  const decryptedName = decrypt(encryptedName, encryptionKey);
-  const decryptedNotes = decrypt(encryptedNotes, encryptionKey);
-
-  console.log("name: ", name);
-  console.log("encryptedName: ", encryptedName);
-  console.log("decryptedName: ", decryptedName);
-
-  console.log("notes: ", notes);
-  console.log("encryptedNotes: ", encryptedNotes);
-  console.log("decryptedNotes: ", decryptedNotes);
-
   // Save to database.
   res.sendStatus(StatusCodes.CREATED);
 });
