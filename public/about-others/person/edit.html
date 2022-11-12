@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Edit Person</h1>
+    <form method="PATCH" action="/api/about-others/person">
+      <p><label for="name">Name</label></p>
+      <p style="display: flex">
+        <input id="name" name="name" type="text" style="flex: auto" />
+      </p>
+      <p><label for="notes">Notes</label></p>
+      <p style="display: flex">
+        <textarea
+          id="notes"
+          name="notes"
+          rows="10"
+          style="flex: auto"
+        ></textarea>
+      </p>
+      <p style="display: flex; justify-content: flex-end">
+        <button>Save</button>
+      </p>
+    </form>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+  </body>
+</html>
