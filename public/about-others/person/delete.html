@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1 id="warning"></h1>
+    <div style="display: flex; justify-content: flex-end">
+      <div>
+        <a id="cancel">Cancel</a>
+        <button>Delete</button>
+      </div>
+    </div>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+    <script>
+      (async () => {
+        // Get person ID from query param.
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const personId = urlSearchParams.get("person-id");
+
+        // Configure cancel link.
+        document.getElementById("cancel").href =
+          "/about-others/person/view.html?person-id=" + personId;
+
+        // Retrieve name for person.
+        const response = await fetch(`/api/about-others/person/${personId}`);
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
+        const person = await response.json();
+
+        const warningElement = document.getElementById("warning");
+        warningElement.textContent =
+          "Are you sure you want to delete your notes on " + person.name + "?";
+      })();
+    </script>
+  </body>
+</html>
