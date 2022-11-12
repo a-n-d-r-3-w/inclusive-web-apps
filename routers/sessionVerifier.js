@@ -22,6 +22,8 @@ router.use(async (req, res, next) => {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
   }
+  // Attach username to the request so that subsequent middleware have it.
+  req.username = result.username;
   next();
 });
 
