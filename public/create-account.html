@@ -14,13 +14,24 @@
         lowercase letter or number.
       </p>
       <p>
-        <label> Username <input name="username" type="text" /> </label>
+        <label for="username">Username</label>
+      </p>
+      <p style="display: flex">
+        <input id="username" name="username" type="text" style="flex: auto" />
       </p>
       <p>Your password must be 8 to 64 characters long.</p>
       <p>
-        <label> Password <input name="password" type="password" /> </label>
+        <label for="password">Password</label>
       </p>
-      <p>
+      <p style="display: flex">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          style="flex: auto"
+        />
+      </p>
+      <p style="display: flex; justify-content: flex-end">
         <button>Create account</button>
       </p>
     </form>
