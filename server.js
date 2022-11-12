@@ -38,19 +38,7 @@ app.use(limiter);
 app.use(compression());
 
 // Unprotected pages and APIs go here.
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-app.get("/main.css", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/main.css"));
-});
-app.get("/create-account.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/create-account.html"));
-});
-app.get("/log-in.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/log-in.html"));
-});
-
+app.use(express.static("public"));
 app.use("/api/users", users);
 app.use("/api/sessions", sessions);
 
@@ -58,10 +46,7 @@ app.use("/api/sessions", sessions);
 app.use(sessionVerifier);
 
 // Protected pages and APIs go here.
-app.use(express.static("public"));
-app.get("/about-others.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/about-others.html"));
-});
+app.use(express.static("protected"));
 app.use("/api/about-others", aboutOthers);
 
 app.use((req, res) => {
