@@ -6,7 +6,8 @@
     <link href="/main.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Person Name</h1>
+    <h1 id="name"></h1>
+    <p id="notes"></p>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
@@ -21,22 +22,13 @@
           window.location.replace("/unauthorized.html");
           return;
         }
-        const person = await person.json();
-        console.log("person: ", person);
-        // people.map((person) => {
-        //   // Create person element.
-        //   const personElement = document.createElement("p");
-        //   const personLinkElement = document.createElement("a");
-        //   personLinkElement.href =
-        //     "/about-others/person/view.html?person-id=" + person.personId;
-        //   const textContent = document.createTextNode(person.name);
-        //   personLinkElement.appendChild(textContent);
-        //   personElement.appendChild(personLinkElement);
+        const person = await response.json();
 
-        //   // Insert into people element.
-        //   const peopleElement = document.getElementById("people");
-        //   peopleElement.appendChild(personElement);
-        // });
+        const nameElement = document.getElementById("name");
+        nameElement.textContent = person.name;
+
+        const notesElement = document.getElementById("notes");
+        notesElement.textContent = person.notes;
       })();
     </script>
   </body>
