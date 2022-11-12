@@ -14,20 +14,11 @@ router.post("/people", async (req, res) => {
   const encryptionKey = req.encryptionKey;
 
   // Encrypt name and notes.
-  const initializationVector = crypto.randomBytes(16);
-  const encryptedName = encrypt(name, encryptionKey, initializationVector);
-  const encryptedNotes = encrypt(notes, encryptionKey, initializationVector);
+  const encryptedName = encrypt(name, encryptionKey);
+  const encryptedNotes = encrypt(notes, encryptionKey);
 
-  const decryptedName = decrypt(
-    encryptedName,
-    encryptionKey,
-    initializationVector
-  );
-  const decryptedNotes = decrypt(
-    encryptedNotes,
-    encryptionKey,
-    initializationVector
-  );
+  const decryptedName = decrypt(encryptedName, encryptionKey);
+  const decryptedNotes = decrypt(encryptedNotes, encryptionKey);
 
   console.log("name: ", name);
   console.log("encryptedName: ", encryptedName);
