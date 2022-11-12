@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const { encrypt } = require("../encryptionUtils");
 
 const { StatusCodes } = require("http-status-codes");
 
@@ -11,6 +12,7 @@ router.post("/people", async (req, res) => {
   const notes = req.body.notes;
   const encryptionKey = req.encryptionKey;
   // Encrypt name and notes.
+
   // Save to database.
   res.sendStatus(StatusCodes.CREATED);
 });
