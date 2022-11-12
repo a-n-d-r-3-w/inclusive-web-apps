@@ -7,15 +7,21 @@
   </head>
   <body>
     <h1>Add Person</h1>
-    <form method="POST" action="/api/sessions">
-      <p>
-        <label> Name <input name="name" type="text" /> </label>
+    <form method="POST" action="/api/about-others/people">
+      <p><label for="name">Name</label></p>
+      <p style="display: flex">
+        <input id="name" name="name" type="text" style="flex: auto" />
       </p>
-      <p style="display: flex; align-items: flex-start; gap: 0.5em">
-        <label for="notes"> Notes </label>
-        <textarea id="notes" rows="10" style="flex: 1"></textarea>
+      <p><label for="notes">Notes</label></p>
+      <p style="display: flex">
+        <textarea
+          id="notes"
+          name="notes"
+          rows="10"
+          style="flex: auto"
+        ></textarea>
       </p>
-      <p>
+      <p style="display: flex; justify-content: flex-end">
         <button>Add person</button>
       </p>
     </form>
