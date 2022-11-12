@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
-const { encrypt } = require("../encryptionUtils");
+const { encrypt, decrypt } = require("../encryptionUtils");
 
 const { StatusCodes } = require("http-status-codes");
 
@@ -17,10 +17,25 @@ router.post("/people", async (req, res) => {
   const initializationVector = crypto.randomBytes(16);
   const encryptedName = encrypt(name, encryptionKey, initializationVector);
   const encryptedNotes = encrypt(notes, encryptionKey, initializationVector);
+
+  const decryptedName = decrypt(
+    encryptedName,
+    encryptionKey,
+    initializationVector
+  );
+  const decryptedNotes = decrypt(
+    encryptedNotes,
+    encryptionKey,
+    initializationVector
+  );
+
   console.log("name: ", name);
   console.log("encryptedName: ", encryptedName);
+  console.log("decryptedName: ", decryptedName);
+
   console.log("notes: ", notes);
   console.log("encryptedNotes: ", encryptedNotes);
+  console.log("decryptedNotes: ", decryptedNotes);
 
   // Save to database.
   res.sendStatus(StatusCodes.CREATED);
