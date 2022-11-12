@@ -31,6 +31,10 @@
     <script>
       (async () => {
         const response = await fetch("/api/about-others/people");
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
         const people = await response.json();
         people.map((person) => {
           // Create person element.
