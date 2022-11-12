@@ -10,7 +10,7 @@ router.use(cookieParser());
 router.use(async (req, res, next) => {
   const sessionId = req.cookies.sessionId;
   if (!sessionId) {
-    res.status(StatusCodes.UNAUTHORIZED);
+    res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
   }
 
