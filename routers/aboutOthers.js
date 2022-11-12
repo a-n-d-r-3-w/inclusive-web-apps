@@ -10,6 +10,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post("/people", async (req, res) => {
+  const username = req.username;
   const name = req.body.name;
   const notes = req.body.notes;
   const encryptionKey = req.encryptionKey;
@@ -20,9 +21,9 @@ router.post("/people", async (req, res) => {
 
   // Save to database.
   const sql =
-    "INSERT INTO inclusive_web_apps.about_others_people (person_id, encrypted_name, encrypted_notes) VALUES (?, ?, ?);";
-  const personId = "temp";
-  const args = [personId, encryptedName, encryptedNotes];
+    "INSERT INTO inclusive_web_apps.about_others_people (username, person_id, encrypted_name, encrypted_notes) VALUES (?, ?, ?, ?);";
+  const personId = crypto.randomBytes(16).toString("hex");
+  const args = [username, personId, encryptedName, encryptedNotes];
   await connectQueryEnd(sql, args);
   res.sendStatus(StatusCodes.CREATED);
 });
