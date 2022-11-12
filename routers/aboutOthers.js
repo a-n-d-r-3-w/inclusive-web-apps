@@ -85,4 +85,14 @@ router.post("/person/:personId", async (req, res) => {
   );
 });
 
+// Delete person.
+router.delete("/person/:personId", async (req, res) => {
+  const personId = req.params.personId;
+  const username = req.username;
+  const sql = `DELETE FROM inclusive_web_apps.about_others_people WHERE username=? AND person_id=?;`;
+  const args = [username, personId];
+  await connectQueryEnd(sql, args);
+  res.sendStatus(StatusCodes.NO_CONTENT);
+});
+
 module.exports = router;
