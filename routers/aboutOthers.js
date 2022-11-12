@@ -25,7 +25,7 @@ router.post("/people", async (req, res) => {
   const personId = crypto.randomBytes(16).toString("hex");
   const args = [username, personId, encryptedName, encryptedNotes];
   await connectQueryEnd(sql, args);
-  res.sendStatus(StatusCodes.CREATED);
+  res.redirect(StatusCodes.SEE_OTHER, `/about-others.html`);
 });
 
 router.get("/people", async (req, res) => {
