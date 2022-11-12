@@ -48,8 +48,9 @@
         notesElement.value = person.notes;
 
         // Configure form action to POST to the specified person.
-        document.getElementById("edit-form").action =
-          "/api/about-others/person?person-id=" + personId;
+        document.getElementById(
+          "edit-form"
+        ).action = `/api/about-others/person/${personId}`;
       })();
     </script>
   </body>

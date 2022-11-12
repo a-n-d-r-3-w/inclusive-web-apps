@@ -9,6 +9,7 @@ const { StatusCodes } = require("http-status-codes");
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
+// Create new person
 router.post("/people", async (req, res) => {
   const username = req.username;
   const name = req.body.name;
@@ -59,6 +60,29 @@ router.get("/person/:personId", async (req, res) => {
     name,
     notes,
   });
+});
+
+// Update person.
+router.post("/person/:personId", async (req, res) => {
+  const username = req.username;
+  const personId = req.params.personId;
+
+  const name = req.body.name;
+  const notes = req.body.notes;
+  const encryptionKey = req.encryptionKey;
+
+  // Encrypt name and notes.
+  const encryptedName = encrypt(name, encryptionKey);
+  const encryptedNotes = encrypt(notes, encryptionKey);
+
+  // Update database row.
+  const sql = `UPDATE inclusive_web_apps.about_others_people SET encrypted_name=?, encrypted_notes=? WHERE username=? AND person_id=?;`;
+  const args = [encryptedName, encryptedNotes, username, personId];
+  await connectQueryEnd(sql, args);
+  res.redirect(
+    StatusCodes.SEE_OTHER,
+    "/about-others/person/view.html?person-id=" + personId
+  );
 });
 
 module.exports = router;
