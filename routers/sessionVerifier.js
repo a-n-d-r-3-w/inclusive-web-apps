@@ -22,8 +22,22 @@ router.use(async (req, res, next) => {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
   }
+
   // Attach username to the request so that subsequent middleware have it.
-  req.username = result.username;
+  const username = result.username;
+  req.username = username;
+
+  // Attach encryption key to the request so that subsequent middleware have it.
+  const sql2 = "SELECT * FROM inclusive_web_apps.users WHERE username=?;";
+  const args2 = [username];
+  const result2 = (await connectQueryEnd(sql2, args2))[0];
+  if (!result) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return;
+  }
+  const encryptionKey = result2.encryption_key;
+  req.encryptionKey = encryptionKey;
+
   next();
 });
 
