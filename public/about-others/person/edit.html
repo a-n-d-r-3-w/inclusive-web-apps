@@ -28,5 +28,25 @@
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
+    <script>
+      (async () => {
+        // Get person ID from query param.
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const personId = urlSearchParams.get("person-id");
+
+        const response = await fetch(`/api/about-others/person/${personId}`);
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
+        const person = await response.json();
+
+        const nameElement = document.getElementById("name");
+        nameElement.value = person.name;
+
+        const notesElement = document.getElementById("notes");
+        notesElement.value = person.notes;
+      })();
+    </script>
   </body>
 </html>

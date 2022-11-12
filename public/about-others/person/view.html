@@ -8,8 +8,9 @@
   <body>
     <header style="display: flex; justify-content: flex-end">
       <div>
-        <a href="/about-others/person/edit.html">Edit</a> |
-        <a href="/about-others/person/delete.html">Delete</a>
+        <a id="edit-link">Edit</a>
+        |
+        <a id="delete-link">Delete</a>
       </div>
     </header>
     <h1 id="name"></h1>
@@ -23,6 +24,13 @@
         const urlSearchParams = new URLSearchParams(window.location.search);
         const personId = urlSearchParams.get("person-id");
 
+        // Update edit and delete links.
+        document.getElementById("edit-link").href =
+          "/about-others/person/edit.html?person-id=" + personId;
+        document.getElementById("delete-link").href =
+          "/about-others/person/delete.html?person-id=" + personId;
+
+        // Retrieve name and notes for person.
         const response = await fetch(`/api/about-others/person/${personId}`);
         if (response.status === 401) {
           window.location.replace("/unauthorized.html");
