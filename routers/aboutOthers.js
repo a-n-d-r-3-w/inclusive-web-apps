@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 // Create new person
-router.post("/people", async (req, res) => {
+router.post("/person", async (req, res) => {
   const username = req.username;
   const name = req.body.name;
   const notes = req.body.notes;
