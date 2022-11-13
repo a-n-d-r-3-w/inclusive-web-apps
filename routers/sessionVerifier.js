@@ -10,7 +10,7 @@ router.use(cookieParser());
 router.use(async (req, res, next) => {
   const sessionId = req.cookies.sessionId;
   if (!sessionId) {
-    res.sendStatus(StatusCodes.UNAUTHORIZED);
+    res.status(StatusCodes.UNAUTHORIZED).redirect("/unauthorized.html");
     return;
   }
 
@@ -19,7 +19,7 @@ router.use(async (req, res, next) => {
   const args = [sessionId];
   const result = (await connectQueryEnd(sql, args))[0];
   if (!result) {
-    res.sendStatus(StatusCodes.UNAUTHORIZED);
+    res.status(StatusCodes.UNAUTHORIZED).redirect("/unauthorized.html");
     return;
   }
 
