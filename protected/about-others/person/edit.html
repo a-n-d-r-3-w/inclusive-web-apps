@@ -21,9 +21,19 @@
           style="flex: auto"
         ></textarea>
       </p>
-      <p style="display: flex; justify-content: flex-end">
-        <button>Save</button>
-      </p>
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 1em;
+        "
+      >
+        <div>
+          <a id="cancel">Cancel</a>
+        </div>
+        <div><button>Save</button></div>
+      </div>
     </form>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
@@ -33,6 +43,10 @@
         // Get person ID from query param.
         const urlSearchParams = new URLSearchParams(window.location.search);
         const personId = urlSearchParams.get("person-id");
+
+        // Configure cancel link.
+        document.getElementById("cancel").href =
+          "/about-others/person/view.html?person-id=" + personId;
 
         const response = await fetch(`/api/about-others/person/${personId}`);
         if (response.status === 401) {
