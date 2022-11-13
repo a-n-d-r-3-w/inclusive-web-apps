@@ -28,6 +28,5 @@ li {
 
 h1,
 footer {
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
