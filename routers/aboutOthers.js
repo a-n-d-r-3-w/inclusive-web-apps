@@ -41,6 +41,17 @@ router.get("/people", async (req, res) => {
     personId: person.person_id,
     name: decrypt(person.encrypted_name, encryptionKey),
   }));
+  decryptedPeople.sort((person1, person2) => {
+    const name1 = person1.name;
+    const name2 = person2.name;
+    if (name1 < name2) {
+      return -1;
+    }
+    if (name1 > name2) {
+      return 1;
+    }
+    return 0;
+  });
   res.status(StatusCodes.OK).send(decryptedPeople);
 });
 
