@@ -23,3 +23,9 @@ button {
 li {
   padding-bottom: 0.5rem;
 }
+
+h1,
+footer {
+  display: flex;
+  justify-content: center;
+}
