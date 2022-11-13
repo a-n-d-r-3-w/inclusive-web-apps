@@ -3,6 +3,8 @@ body {
   background: #fafac8;
   font-family: Arial, Helvetica, sans-serif;
   padding: 1rem;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 /* Make form input and textarea have same font-family and font-size as the body. Add padding around the fields so that characters aren't right up against the field edges. */
