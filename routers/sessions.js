@@ -2,12 +2,15 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const { StatusCodes } = require("http-status-codes");
 const crypto = require("crypto");
+const cookieParser = require("cookie-parser");
+
 const connectQueryEnd = require("../connectQueryEnd");
 
 const { validateUsernameAndPassword } = require("./sessionsUtils");
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
+router.use(cookieParser());
 
 router.post("/", async (req, res) => {
   try {
@@ -33,7 +36,7 @@ router.post("/", async (req, res) => {
       secure: true,
     });
 
-    res.redirect(StatusCodes.SEE_OTHER, `/about-others.html`);
+    res.redirect(StatusCodes.SEE_OTHER, `/home.html`);
   } catch (error) {
     const encodedErrorMessage = encodeURIComponent(error.message); // To replace spaces with %20, for example.
     res.redirect(
@@ -43,6 +46,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {});
+router.delete("/", async (req, res) => {
+  const sessionId = req.cookies.sessionId;
+  const sql = "DELETE FROM inclusive_web_apps.sessions WHERE session_id=?;";
+  const args = [sessionId];
+  await connectQueryEnd(sql, args);
+  res.clearCookie("sessionId", {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: true,
+  });
+  res.end();
+});
 
 module.exports = router;
