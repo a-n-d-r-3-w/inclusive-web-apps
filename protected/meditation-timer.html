@@ -88,17 +88,17 @@
       }
 
       function startTimer(minutes) {
-        timeLeftInSeconds = minutes / 2;
+        timeLeftInSeconds = minutes * 60;
         updateTimeDisplay();
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
             doneSound.play();
             stopTimer();
-            enableStartButtons();
             setTimeout(() => {
               // Let stop button be enabled while sound plays so user can stop it.
               // After the sound finishes, disable the stop button.
               disableStopButton();
+              enableStartButtons();
             }, 10000);
             return;
           }
