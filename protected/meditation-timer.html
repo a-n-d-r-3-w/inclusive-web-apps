@@ -17,8 +17,10 @@
     <main>
       <h1>Meditation Timer</h1>
       <p>
-        Make sure your computer's screensaver or sleep mode does not interrupt
-        the timer.
+        If you are using Chrome, Edge, Opera, or Samsung Internet, this app will
+        keep the device screen awake so that the timer works as expected.
+        Otherwise, please make sure your computer's screensaver or sleep mode
+        does not start before the timer ends.
       </p>
       <p
         id="time-left"
@@ -87,9 +89,17 @@
         document.getElementById("stop").disabled = true;
       }
 
-      function startTimer(minutes) {
+      async function startTimer(minutes) {
         timeLeftInSeconds = minutes * 60;
         updateTimeDisplay();
+
+        let wakeLock;
+        try {
+          wakeLock = await navigator.wakeLock.request("screen");
+        } catch (err) {
+          console.log(`${err.name}, ${err.message}`);
+        }
+
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
             doneSound.play();
@@ -100,6 +110,7 @@
               disableStopButton();
               enableStartButtons();
             }, 10000);
+            wakeLock.release();
             return;
           }
           timeLeftInSeconds -= 1;
