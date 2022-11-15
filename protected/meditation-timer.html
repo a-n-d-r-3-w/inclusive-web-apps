@@ -16,31 +16,45 @@
     </nav>
     <main>
       <h1>Meditation Timer</h1>
-      <p id="time">15:00</p>
+      <p id="time"></p>
       <button onclick="onStart()">Start</button>
       <button onclick="onStop()">Stop</button>
+      <button onclick="onReset()">Reset</button>
     </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
     <script>
-      let timeLeftInSeconds = 60 * 15; // 15 minutes.
+      let timeLeftInSeconds = 10;
       let intervalId;
 
       function onStart() {
         intervalId = setInterval(() => {
           timeLeftInSeconds -= 1;
-          // Update time display.
-          const minutes = Math.floor(timeLeftInSeconds / 60);
-          const seconds = timeLeftInSeconds % 60;
-          const timeElement = document.getElementById("time");
-          timeElement.textContent = minutes + ":" + seconds;
+          updateTimeDisplay();
         }, 1000);
+      }
+
+      function updateTimeDisplay() {
+        const minutes = Math.floor(timeLeftInSeconds / 60)
+          .toString()
+          .padStart(2, "0");
+        const seconds = (timeLeftInSeconds % 60).toString().padStart(2, "0");
+        const timeElement = document.getElementById("time");
+        timeElement.textContent = minutes + ":" + seconds;
       }
 
       function onStop() {
         clearInterval(intervalId);
       }
+
+      function onReset() {
+        onStop();
+        timeLeftInSeconds = 10;
+        updateTimeDisplay();
+      }
+
+      updateTimeDisplay();
     </script>
   </body>
 </html>
