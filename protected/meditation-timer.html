@@ -14,9 +14,33 @@
         <a href="/log-out.html">Log out</a>
       </div>
     </nav>
-    <h1>Meditation Timer</h1>
+    <main>
+      <h1>Meditation Timer</h1>
+      <p id="time">15:00</p>
+      <button onclick="onStart()">Start</button>
+      <button onclick="onStop()">Stop</button>
+    </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
+    <script>
+      let timeLeftInSeconds = 60 * 15; // 15 minutes.
+      let intervalId;
+
+      function onStart() {
+        intervalId = setInterval(() => {
+          timeLeftInSeconds -= 1;
+          // Update time display.
+          const minutes = Math.floor(timeLeftInSeconds / 60);
+          const seconds = timeLeftInSeconds % 60;
+          const timeElement = document.getElementById("time");
+          timeElement.textContent = minutes + ":" + seconds;
+        }, 1000);
+      }
+
+      function onStop() {
+        clearInterval(intervalId);
+      }
+    </script>
   </body>
 </html>
