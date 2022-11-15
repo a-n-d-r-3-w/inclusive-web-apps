@@ -16,9 +16,9 @@
     </nav>
     <main>
       <h1>Good Habits</h1>
-      <a href="/good-habits/habits/add.html">Add habit</a>
-      <h2>Here is your record for the past seven days:</h2>
+      <h2>Your record for the past seven days:</h2>
       <div id="habits"></div>
+      <a href="/good-habits/habits/add.html">Add habit</a>
     </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
@@ -35,10 +35,12 @@
           {
             habitId: "asdf",
             description: "Push ups",
+            record: "???yy?y",
           },
           {
             habitId: "qwer",
             description: "Meditate",
+            record: "yy??yy?",
           },
         ];
         habits.map((habit) => {
@@ -47,7 +49,10 @@
 
           // Description.
           const habitDescriptionElement = document.createElement("p");
-          habitDescriptionElement.textContent = habit.description;
+          habitDescriptionElement.textContent =
+            habit.description +
+            ": " +
+            habit.record.replaceAll("y", "✓ ").replaceAll("?", "? ");
           habitElement.appendChild(habitDescriptionElement);
 
           // Buttons.
