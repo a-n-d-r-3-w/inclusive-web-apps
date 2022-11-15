@@ -90,6 +90,7 @@
           if (timeLeftInSeconds === 0) {
             doneSound.play();
             stopTimer();
+            enableStartButtons();
             return;
           }
           timeLeftInSeconds -= 1;
