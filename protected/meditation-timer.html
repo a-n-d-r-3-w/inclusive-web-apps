@@ -18,8 +18,11 @@
       <h1>Meditation Timer</h1>
       <p
         id="time-left"
-        style="text-align: center; font-size: 5rem; margin: 3rem"
+        style="text-align: center; font-size: 5rem; margin: 0"
       ></p>
+      <p id="timer-status" style="text-align: center; margin-bottom: 3rem">
+        Timer is stopped.
+      </p>
       <p style="display: flex; justify-content: center; gap: 1rem">
         <button
           id="start-10"
@@ -92,6 +95,8 @@
           timeLeftInSeconds -= 1;
           updateTimeDisplay();
         }, 1000);
+        document.getElementById("timer-status").textContent =
+          "The timer is running.";
       }
 
       function updateTimeDisplay() {
@@ -109,6 +114,8 @@
 
       function stopTimer() {
         clearInterval(intervalId);
+        document.getElementById("timer-status").textContent =
+          "The timer is stopped.";
       }
 
       updateTimeDisplay();
