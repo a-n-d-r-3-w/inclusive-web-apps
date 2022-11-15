@@ -14,11 +14,41 @@
         <a href="/log-out.html">Log out</a>
       </div>
     </nav>
-    <main>
-      <h1>Good Habits</h1>
-    </main>
+    <h1>Good Habits</h1>
+    <a href="/good-habits/habits/add.html">Add habit</a>
+    <h2>Habits</h2>
+    <div id="habits"></div>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
+    <script>
+      (async () => {
+        const response = await fetch("/api/good-habits/habits");
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
+        // const habits = await response.json();
+        const habits = [
+          {
+            habitId: "asdf",
+            description: "Push ups",
+          },
+          {
+            habitId: "qwer",
+            description: "Meditate",
+          },
+        ];
+        habits.map((habit) => {
+          // Create habit element.
+          const habitElement = document.createElement("p");
+          habitElement.textContent = habit.description;
+
+          // Insert into habits element.
+          const habitsElement = document.getElementById("habits");
+          habitsElement.appendChild(habitElement);
+        });
+      })();
+    </script>
   </body>
 </html>
