@@ -16,16 +16,18 @@
     </nav>
     <main>
       <h1>Meditation Timer</h1>
-      <p id="time"></p>
-      <button onclick="startTimer()">Start</button>
-      <button onclick="stopTimer()">Stop</button>
-      <button onclick="resetTimer()">Reset</button>
+      <p id="time-left" style="text-align: center; font-size: 5rem"></p>
+      <div style="display: flex; justify-content: center; gap: 1rem">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+      </div>
     </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
     <script>
-      let timeLeftInSeconds = 10;
+      let timeLeftInSeconds = 3;
       let intervalId;
 
       function startTimer() {
@@ -44,7 +46,7 @@
           .toString()
           .padStart(2, "0");
         const seconds = (timeLeftInSeconds % 60).toString().padStart(2, "0");
-        const timeElement = document.getElementById("time");
+        const timeElement = document.getElementById("time-left");
         timeElement.textContent = minutes + ":" + seconds;
       }
 
