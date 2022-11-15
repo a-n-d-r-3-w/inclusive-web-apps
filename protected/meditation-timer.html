@@ -61,7 +61,7 @@
       let timeLeftInSeconds = 0;
       let intervalId;
       let isTimerRunning = false;
-      const doneSound = new Audio("meditation-done.mp3");
+      const doneSound = new Audio("/meditation-timer/meditation-done.mp3");
 
       function enableStartButtons() {
         document.getElementById("start-10").disabled = false;
@@ -84,7 +84,7 @@
       }
 
       function startTimer(minutes) {
-        timeLeftInSeconds = minutes * 60;
+        timeLeftInSeconds = minutes;
         updateTimeDisplay();
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
