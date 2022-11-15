@@ -6,31 +6,33 @@
     <link href="/main.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Log In</h1>
-    <p style="color: #e31c3d" id="error"></p>
-    <p id="just-created-account"></p>
-    <form method="POST" action="/api/sessions">
-      <p>
-        <label for="username">Username</label>
-      </p>
-      <p style="display: flex">
-        <input id="username" name="username" type="text" style="flex: auto" />
-      </p>
-      <p>
-        <label for="password"> Password </label>
-      </p>
-      <p style="display: flex">
-        <input
-          id="password"
-          name="password"
-          type="password"
-          style="flex: auto"
-        />
-      </p>
-      <p style="display: flex; justify-content: flex-end">
-        <button>Log in</button>
-      </p>
-    </form>
+    <main>
+      <h1>Log In</h1>
+      <p style="color: #e31c3d" id="error"></p>
+      <p id="just-created-account"></p>
+      <form method="POST" action="/api/sessions">
+        <p>
+          <label for="username">Username</label>
+        </p>
+        <p style="display: flex">
+          <input id="username" name="username" type="text" style="flex: auto" />
+        </p>
+        <p>
+          <label for="password"> Password </label>
+        </p>
+        <p style="display: flex">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            style="flex: auto"
+          />
+        </p>
+        <p style="display: flex; justify-content: flex-end">
+          <button>Log in</button>
+        </p>
+      </form>
+    </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>

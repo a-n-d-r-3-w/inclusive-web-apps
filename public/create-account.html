@@ -6,35 +6,37 @@
     <link href="/main.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Create Account</h1>
-    <p style="color: #e31c3d" id="error"></p>
-    <form method="POST" action="/api/users">
-      <p>
-        Your username must be 4 to 16 characters long. Each character must be a
-        lowercase letter or number.
-      </p>
-      <p>
-        <label for="username">Username</label>
-      </p>
-      <p style="display: flex">
-        <input id="username" name="username" type="text" style="flex: auto" />
-      </p>
-      <p>Your password must be 8 to 64 characters long.</p>
-      <p>
-        <label for="password">Password</label>
-      </p>
-      <p style="display: flex">
-        <input
-          id="password"
-          name="password"
-          type="password"
-          style="flex: auto"
-        />
-      </p>
-      <p style="display: flex; justify-content: flex-end">
-        <button>Create account</button>
-      </p>
-    </form>
+    <main>
+      <h1>Create Account</h1>
+      <p style="color: #e31c3d" id="error"></p>
+      <form method="POST" action="/api/users">
+        <p>
+          Your username must be 4 to 16 characters long. Each character must be
+          a lowercase letter or number.
+        </p>
+        <p>
+          <label for="username">Username</label>
+        </p>
+        <p style="display: flex">
+          <input id="username" name="username" type="text" style="flex: auto" />
+        </p>
+        <p>Your password must be 8 to 64 characters long.</p>
+        <p>
+          <label for="password">Password</label>
+        </p>
+        <p style="display: flex">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            style="flex: auto"
+          />
+        </p>
+        <p style="display: flex; justify-content: flex-end">
+          <button>Create account</button>
+        </p>
+      </form>
+    </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
