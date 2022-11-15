@@ -43,9 +43,28 @@
           // Create habit element.
           const habitElement = document.createElement("p");
 
+          // Description.
           const habitDescriptionElement = document.createElement("p");
           habitDescriptionElement.textContent = habit.description;
           habitElement.appendChild(habitDescriptionElement);
+
+          // Buttons.
+          const buttonContainer = document.createElement("div");
+          buttonContainer.style = "display: flex; gap: 1rem";
+          const doneButton = document.createElement("button");
+          doneButton.textContent = "Done";
+          buttonContainer.appendChild(doneButton);
+          const notDoneButton = document.createElement("button");
+          notDoneButton.textContent = "Not done";
+          buttonContainer.appendChild(notDoneButton);
+          const renameButton = document.createElement("button");
+          renameButton.textContent = "Rename";
+          buttonContainer.appendChild(renameButton);
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          buttonContainer.appendChild(deleteButton);
+
+          habitElement.appendChild(buttonContainer);
 
           // Insert into habits element.
           const habitsElement = document.getElementById("habits");
