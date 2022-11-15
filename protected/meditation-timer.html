@@ -19,8 +19,8 @@
       <p id="time-left" style="text-align: center; font-size: 5rem"></p>
       <div style="display: flex; justify-content: center; gap: 1rem">
         <button onclick="startTimer()">Start</button>
-        <button onclick="stopTimer()">Stop</button>
-        <button onclick="resetTimer()">Reset</button>
+        <button onclick="stopTimer(); stopSound();">Stop</button>
+        <button onclick="resetTimer(); stopSound();">Reset</button>
       </div>
     </main>
     <footer>
@@ -29,10 +29,12 @@
     <script>
       let timeLeftInSeconds = 3;
       let intervalId;
+      const doneSound = new Audio("meditation-done.mp3");
 
       function startTimer() {
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
+            doneSound.play();
             stopTimer();
             return;
           }
@@ -48,6 +50,10 @@
         const seconds = (timeLeftInSeconds % 60).toString().padStart(2, "0");
         const timeElement = document.getElementById("time-left");
         timeElement.textContent = minutes + ":" + seconds;
+      }
+
+      function stopSound() {
+        doneSound.pause();
       }
 
       function stopTimer() {
