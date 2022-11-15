@@ -84,7 +84,7 @@
       }
 
       function startTimer(minutes) {
-        timeLeftInSeconds = minutes;
+        timeLeftInSeconds = minutes * 60;
         updateTimeDisplay();
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
