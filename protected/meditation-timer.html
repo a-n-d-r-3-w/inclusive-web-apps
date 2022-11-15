@@ -16,22 +16,73 @@
     </nav>
     <main>
       <h1>Meditation Timer</h1>
-      <p id="time-left" style="text-align: center; font-size: 5rem"></p>
-      <div style="display: flex; justify-content: center; gap: 1rem">
-        <button onclick="startTimer()">Start</button>
-        <button onclick="stopTimer(); stopSound();">Stop</button>
-        <button onclick="resetTimer(); stopSound();">Reset</button>
-      </div>
+      <p
+        id="time-left"
+        style="text-align: center; font-size: 5rem; margin: 3rem"
+      ></p>
+      <p style="display: flex; justify-content: center; gap: 1rem">
+        <button
+          id="start-10"
+          onclick="disableStartButtons(); enableStopButton(); startTimer(10)"
+        >
+          Start 10 minute timer
+        </button>
+        <button
+          id="start-15"
+          onclick="disableStartButtons();  enableStopButton(); startTimer(15)"
+        >
+          Start 15 minute timer
+        </button>
+        <button
+          id="start-20"
+          onclick="disableStartButtons();  enableStopButton(); startTimer(20)"
+        >
+          Start 20 minute timer
+        </button>
+      </p>
+      <p style="display: flex; justify-content: center; gap: 1rem">
+        <button
+          id="stop"
+          onclick="disableStopButton(); enableStartButtons(); stopTimer(); stopSound();"
+          style="flex: auto"
+          disabled
+        >
+          Stop timer
+        </button>
+      </p>
     </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
     </footer>
     <script>
-      let timeLeftInSeconds = 3;
+      let timeLeftInSeconds = 0;
       let intervalId;
+      let isTimerRunning = false;
       const doneSound = new Audio("meditation-done.mp3");
 
-      function startTimer() {
+      function enableStartButtons() {
+        document.getElementById("start-10").disabled = false;
+        document.getElementById("start-15").disabled = false;
+        document.getElementById("start-20").disabled = false;
+      }
+
+      function disableStartButtons() {
+        document.getElementById("start-10").disabled = true;
+        document.getElementById("start-15").disabled = true;
+        document.getElementById("start-20").disabled = true;
+      }
+
+      function enableStopButton() {
+        document.getElementById("stop").disabled = false;
+      }
+
+      function disableStopButton() {
+        document.getElementById("stop").disabled = true;
+      }
+
+      function startTimer(minutes) {
+        timeLeftInSeconds = minutes * 60;
+        updateTimeDisplay();
         intervalId = setInterval(() => {
           if (timeLeftInSeconds === 0) {
             doneSound.play();
@@ -58,12 +109,6 @@
 
       function stopTimer() {
         clearInterval(intervalId);
-      }
-
-      function resetTimer() {
-        stopTimer();
-        timeLeftInSeconds = 10;
-        updateTimeDisplay();
       }
 
       updateTimeDisplay();
