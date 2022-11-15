@@ -17,9 +17,9 @@
     <main>
       <h1>Meditation Timer</h1>
       <p id="time"></p>
-      <button onclick="onStart()">Start</button>
-      <button onclick="onStop()">Stop</button>
-      <button onclick="onReset()">Reset</button>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="stopTimer()">Stop</button>
+      <button onclick="resetTimer()">Reset</button>
     </main>
     <footer>
       <p>© 2022 Inclusive Web Apps</p>
@@ -28,8 +28,12 @@
       let timeLeftInSeconds = 10;
       let intervalId;
 
-      function onStart() {
+      function startTimer() {
         intervalId = setInterval(() => {
+          if (timeLeftInSeconds === 0) {
+            stopTimer();
+            return;
+          }
           timeLeftInSeconds -= 1;
           updateTimeDisplay();
         }, 1000);
@@ -44,12 +48,12 @@
         timeElement.textContent = minutes + ":" + seconds;
       }
 
-      function onStop() {
+      function stopTimer() {
         clearInterval(intervalId);
       }
 
-      function onReset() {
-        onStop();
+      function resetTimer() {
+        stopTimer();
         timeLeftInSeconds = 10;
         updateTimeDisplay();
       }
