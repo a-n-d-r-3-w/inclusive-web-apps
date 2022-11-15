@@ -57,22 +57,20 @@
 
           // Buttons.
           const buttons = document.createElement("div");
-          buttons.style = "display: flex; gap: 1rem";
+          buttons.style = "display: flex; gap: 1rem; align-items: center";
           const doneButton = document.createElement("button");
           doneButton.textContent = "Done";
-          doneButton.style = "flex: 1";
           buttons.appendChild(doneButton);
           const notDoneButton = document.createElement("button");
-          notDoneButton.textContent = "Not done";
-          notDoneButton.style = "flex: 1";
+          notDoneButton.textContent = "Not\xa0done";
           buttons.appendChild(notDoneButton);
-          const renameButton = document.createElement("button");
+          const renameButton = document.createElement("a");
+          renameButton.href = "";
           renameButton.textContent = "Rename";
-          renameButton.style = "flex: 1";
           buttons.appendChild(renameButton);
-          const deleteButton = document.createElement("button");
+          const deleteButton = document.createElement("a");
           deleteButton.textContent = "Delete";
-          deleteButton.style = "flex: 1";
+          deleteButton.href = "";
           buttons.appendChild(deleteButton);
 
           habitElement.appendChild(buttons);
