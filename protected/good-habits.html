@@ -60,15 +60,19 @@
           buttons.style = "display: flex; gap: 1rem";
           const doneButton = document.createElement("button");
           doneButton.textContent = "Done";
+          doneButton.style = "flex: 1";
           buttons.appendChild(doneButton);
           const notDoneButton = document.createElement("button");
           notDoneButton.textContent = "Not done";
+          notDoneButton.style = "flex: 1";
           buttons.appendChild(notDoneButton);
           const renameButton = document.createElement("button");
           renameButton.textContent = "Rename";
+          renameButton.style = "flex: 1";
           buttons.appendChild(renameButton);
           const deleteButton = document.createElement("button");
           deleteButton.textContent = "Delete";
+          deleteButton.style = "flex: 1";
           buttons.appendChild(deleteButton);
 
           habitElement.appendChild(buttons);
