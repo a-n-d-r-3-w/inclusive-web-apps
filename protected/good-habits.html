@@ -42,7 +42,10 @@
         habits.map((habit) => {
           // Create habit element.
           const habitElement = document.createElement("p");
-          habitElement.textContent = habit.description;
+
+          const habitDescriptionElement = document.createElement("p");
+          habitDescriptionElement.textContent = habit.description;
+          habitElement.appendChild(habitDescriptionElement);
 
           // Insert into habits element.
           const habitsElement = document.getElementById("habits");
