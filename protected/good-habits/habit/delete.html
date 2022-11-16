@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1 id="warning"></h1>
+    <div
+      style="
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1em;
+      "
+    >
+      <div>
+        <a id="cancel" href="/good-habits.html">Cancel</a>
+      </div>
+      <div>
+        <button id="delete">Delete</button>
+      </div>
+    </div>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+    <script>
+      (async () => {
+        // Get person ID from query param.
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const habitId = urlSearchParams.get("habit-id");
+
+        // Retrieve description for habit.
+        const response = await fetch(`/api/good-habits/habit/${habitId}`);
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
+        const habit = await response.json();
+
+        const warningElement = document.getElementById("warning");
+        warningElement.textContent =
+          "Are you sure you want to delete this habit: " +
+          habit.description +
+          "?";
+
+        // Attach callback to Delete button.
+        const deleteButton = document.getElementById("delete");
+        deleteButton.onclick = async () => {
+          await fetch(`/api/good-habits/habit/${habitId}`, {
+            method: "DELETE",
+          });
+          window.location.replace("/good-habits.html");
+        };
+      })();
+    </script>
+  </body>
+</html>

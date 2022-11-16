@@ -90,7 +90,7 @@
 
           const deleteButton = document.createElement("a");
           deleteButton.textContent = "Delete";
-          deleteButton.href = "/good-habits/habit/delete.html";
+          deleteButton.href = `/good-habits/habit/delete.html?habit-id=${habit.habitId}`;
           buttons.appendChild(deleteButton);
 
           habitElement.appendChild(buttons);
