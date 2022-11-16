@@ -45,7 +45,7 @@
 
           // Buttons.
           const buttons = document.createElement("div");
-          buttons.style = "display: flex; gap: 0.5rem; align-items: center";
+          buttons.style = "display: flex; gap: 1rem; align-items: center";
 
           const doneButton = document.createElement("button");
           doneButton.textContent = "Done";
@@ -83,13 +83,14 @@
           };
           buttons.appendChild(notDoneButton);
 
-          const renameButton = document.createElement("a");
-          renameButton.href = "";
-          renameButton.textContent = "Rename";
-          buttons.appendChild(renameButton);
+          const editButton = document.createElement("a");
+          editButton.href = "/good-habits/habit/rename.html";
+          editButton.textContent = "Edit";
+          buttons.appendChild(editButton);
+
           const deleteButton = document.createElement("a");
           deleteButton.textContent = "Delete";
-          deleteButton.href = "";
+          deleteButton.href = "/good-habits/habit/delete.html";
           buttons.appendChild(deleteButton);
 
           habitElement.appendChild(buttons);
