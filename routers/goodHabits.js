@@ -103,4 +103,14 @@ router.post(
   }
 );
 
+// Delete habit
+router.delete("/habit/:habitId", async (req, res) => {
+  const habitId = req.params.habitId;
+  const username = req.username;
+  const sql = `DELETE FROM inclusive_web_apps.good_habits_habits WHERE username=? AND habit_id=?;`;
+  const args = [username, habitId];
+  await connectQueryEnd(sql, args);
+  res.sendStatus(StatusCodes.NO_CONTENT);
+});
+
 module.exports = router;
