@@ -11,6 +11,7 @@ const users = require("./routers/users");
 const sessions = require("./routers/sessions");
 const sessionVerifier = require("./routers/sessionVerifier");
 const aboutOthers = require("./routers/aboutOthers");
+const goodHabits = require("./routers/goodHabits");
 
 const app = express();
 // Disable app.use(helmet.contentSecurityPolicy()); because it prevents the page from rendering on production builds.
@@ -48,6 +49,7 @@ app.use(sessionVerifier);
 // Protected pages and APIs go here.
 app.use(express.static("protected"));
 app.use("/api/about-others", aboutOthers);
+app.use("/api/good-habits", goodHabits);
 
 app.use((req, res) => {
   res
