@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Edit Habit</h1>
+    <form id="edit-form" method="POST">
+      <p><label for="description">Description</label></p>
+      <p style="display: flex">
+        <input
+          id="description"
+          name="description"
+          type="text"
+          style="flex: auto"
+        />
+      </p>
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 1em;
+        "
+      >
+        <div>
+          <a id="cancel" href="/good-habits.html">Cancel</a>
+        </div>
+        <div><button>Save</button></div>
+      </div>
+    </form>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+    <script>
+      (async () => {
+        // Get person ID from query param.
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const habitId = urlSearchParams.get("habit-id");
+
+        const response = await fetch(`/api/good-habits/habit/${habitId}`);
+        if (response.status === 401) {
+          window.location.replace("/unauthorized.html");
+          return;
+        }
+        const habit = await response.json();
+
+        const descriptionElement = document.getElementById("description");
+        descriptionElement.value = habit.description;
+
+        // Configure form action to POST to the specified person.
+        document.getElementById(
+          "edit-form"
+        ).action = `/api/good-habits/habit/${habitId}`;
+      })();
+    </script>
+  </body>
+</html>
