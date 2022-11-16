@@ -62,6 +62,7 @@
       let timeLeftInSeconds = 0;
       let intervalId;
       let isTimerRunning = false;
+      const isWakeLockSupported = !!navigator.wakeLock;
       const doneSound = new Audio("/meditation-timer/meditation-done.mp3");
 
       function enableStartButtons() {
@@ -89,10 +90,8 @@
         updateTimeDisplay();
 
         let wakeLock;
-        try {
+        if (isWakeLockSupported) {
           wakeLock = await navigator.wakeLock.request("screen");
-        } catch (err) {
-          console.log(`${err.name}, ${err.message}`);
         }
 
         intervalId = setInterval(() => {
@@ -104,10 +103,11 @@
               // After the sound finishes, disable the stop button.
               disableStopButton();
               enableStartButtons();
+              wakeLock && wakeLock.release();
             }, 10000);
-            wakeLock.release();
             return;
           }
+
           timeLeftInSeconds -= 1;
           updateTimeDisplay();
         }, 1000);
@@ -136,10 +136,9 @@
 
       updateTimeDisplay();
 
-      // Check if the Screen Wake Lock API is supported.
-      if (!navigator.wakeLock) {
+      if (!isWakeLockSupported) {
         document.getElementById("note-about-wake-lock").textContent =
-          "On Chrome, Edge, Opera, and Samsung Internet, the timer keeps the device screen awake so that it works as expected. On other browsers, please make sure your computer's screensaver or sleep mode does not start before the timer ends.";
+          "On Chrome, Edge, Opera, and Samsung Internet, the timer keeps the device screen awake so that it works as expected. On other browsers, please make sure your device's screensaver or sleep mode does not start before the timer ends.";
       }
     </script>
   </body>
