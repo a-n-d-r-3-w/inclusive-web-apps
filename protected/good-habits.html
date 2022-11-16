@@ -46,9 +46,22 @@
           // Buttons.
           const buttons = document.createElement("div");
           buttons.style = "display: flex; gap: 0.5rem; align-items: center";
+
           const doneButton = document.createElement("button");
           doneButton.textContent = "Done";
+          doneButton.onclick = async () => {
+            await fetch(`/api/good-habits/habits/${habit.habitId}/record`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                newRecord: "y",
+              }),
+            });
+          };
           buttons.appendChild(doneButton);
+
           const notDoneButton = document.createElement("button");
           notDoneButton.textContent = "Not\xa0done";
           buttons.appendChild(notDoneButton);

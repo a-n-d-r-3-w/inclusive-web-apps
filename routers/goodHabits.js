@@ -7,26 +7,29 @@ const connectQueryEnd = require("../connectQueryEnd");
 const { StatusCodes } = require("http-status-codes");
 
 const router = express.Router();
-router.use(bodyParser.urlencoded({ extended: true }));
 
 // Create new habit
-router.post("/habit", async (req, res) => {
-  const username = req.username;
-  const description = req.body.description;
-  const encryptionKey = req.encryptionKey;
+router.post(
+  "/habit",
+  bodyParser.urlencoded({ extended: true }),
+  async (req, res) => {
+    const username = req.username;
+    const description = req.body.description;
+    const encryptionKey = req.encryptionKey;
 
-  // Encrypt description
-  const encryptedDescription = encrypt(description, encryptionKey);
+    // Encrypt description
+    const encryptedDescription = encrypt(description, encryptionKey);
 
-  // Save to database.
-  const sql =
-    "INSERT INTO inclusive_web_apps.good_habits_habits (username, habit_id, encrypted_description, record) VALUES (?, ?, ?, ?);";
-  const habitId = crypto.randomBytes(16).toString("hex");
-  const initialRecord = "?";
-  const args = [username, habitId, encryptedDescription, initialRecord];
-  await connectQueryEnd(sql, args);
-  res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
-});
+    // Save to database.
+    const sql =
+      "INSERT INTO inclusive_web_apps.good_habits_habits (username, habit_id, encrypted_description, record) VALUES (?, ?, ?, ?);";
+    const habitId = crypto.randomBytes(16).toString("hex");
+    const initialRecord = "?";
+    const args = [username, habitId, encryptedDescription, initialRecord];
+    await connectQueryEnd(sql, args);
+    res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
+  }
+);
 
 router.get("/habits", async (req, res) => {
   const username = req.username;
@@ -55,12 +58,12 @@ router.get("/habits", async (req, res) => {
   res.status(StatusCodes.OK).send(decryptedHabits);
 });
 
-router.put("/habits/:habitId/record", async (req, res) => {
+router.put("/habits/:habitId/record", bodyParser.json(), async (req, res) => {
   const username = req.username;
   const habitId = req.params.habitId;
   const newRecord = req.body.newRecord;
   const sql =
-    "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habitId=?";
+    "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habit_id=?";
   const args = [newRecord, username, habitId];
   await connectQueryEnd(sql, args);
   res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
