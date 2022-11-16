@@ -58,6 +58,17 @@ router.get("/habits", async (req, res) => {
   res.status(StatusCodes.OK).send(decryptedHabits);
 });
 
+router.put("/habits/:habitId/record", bodyParser.json(), async (req, res) => {
+  const username = req.username;
+  const habitId = req.params.habitId;
+  const newRecord = req.body.newRecord;
+  const sql =
+    "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habit_id=?";
+  const args = [newRecord, username, habitId];
+  await connectQueryEnd(sql, args);
+  res.sendStatus(StatusCodes.NO_CONTENT);
+});
+
 // Get habit description.
 router.get("/habit/:habitId", async (req, res) => {
   const username = req.username;
@@ -74,15 +85,22 @@ router.get("/habit/:habitId", async (req, res) => {
   });
 });
 
-router.put("/habits/:habitId/record", bodyParser.json(), async (req, res) => {
-  const username = req.username;
-  const habitId = req.params.habitId;
-  const newRecord = req.body.newRecord;
-  const sql =
-    "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habit_id=?";
-  const args = [newRecord, username, habitId];
-  await connectQueryEnd(sql, args);
-  res.sendStatus(StatusCodes.NO_CONTENT);
-});
+// Update habit description.
+router.post(
+  "/habit/:habitId",
+  bodyParser.urlencoded({ extended: true }),
+  async (req, res) => {
+    const username = req.username;
+    const habitId = req.params.habitId;
+    const description = req.body.description;
+    const encryptionKey = req.encryptionKey;
+    const encryptedDescription = encrypt(description, encryptionKey);
+    const sql =
+      "UPDATE inclusive_web_apps.good_habits_habits SET encrypted_description=? WHERE username=? and habit_id=?";
+    const args = [encryptedDescription, username, habitId];
+    await connectQueryEnd(sql, args);
+    res.redirect(StatusCodes.SEE_OTHER, "/good-habits.html");
+  }
+);
 
 module.exports = router;
