@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inclusive Web Apps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Add Habit</h1>
+    <form method="POST" action="/api/good-habits/habit">
+      <p><label for="description">Description</label></p>
+      <p style="display: flex">
+        <input
+          id="description"
+          name="description"
+          type="text"
+          style="flex: auto"
+        />
+      </p>
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 1em;
+        "
+      >
+        <div>
+          <a href="/good-habits.html">Cancel</a>
+        </div>
+        <div><button>Add habit</button></div>
+      </div>
+    </form>
+    <footer>
+      <p>© 2022 Inclusive Web Apps</p>
+    </footer>
+  </body>
+</html>
