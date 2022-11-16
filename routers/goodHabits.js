@@ -22,7 +22,8 @@ router.post("/habit", async (req, res) => {
   const sql =
     "INSERT INTO inclusive_web_apps.good_habits_habits (username, habit_id, encrypted_description, record) VALUES (?, ?, ?, ?);";
   const habitId = crypto.randomBytes(16).toString("hex");
-  const args = [username, habitId, encryptedDescription, ""];
+  const initialRecord = "?";
+  const args = [username, habitId, encryptedDescription, initialRecord];
   await connectQueryEnd(sql, args);
   res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
 });
