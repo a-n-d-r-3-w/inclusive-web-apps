@@ -50,13 +50,15 @@
           const doneButton = document.createElement("button");
           doneButton.textContent = "Done";
           doneButton.onclick = async () => {
+            const oldRecord = habit.record;
+            const newRecord = oldRecord.slice(0, oldRecord.length - 1) + "y";
             await fetch(`/api/good-habits/habits/${habit.habitId}/record`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                newRecord: "y",
+                newRecord,
               }),
             });
             location.reload();
@@ -66,13 +68,15 @@
           const notDoneButton = document.createElement("button");
           notDoneButton.textContent = "Not\xa0done";
           notDoneButton.onclick = async () => {
+            const oldRecord = habit.record;
+            const newRecord = oldRecord.slice(0, oldRecord.length - 1) + "?";
             await fetch(`/api/good-habits/habits/${habit.habitId}/record`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                newRecord: "?",
+                newRecord,
               }),
             });
             location.reload();
