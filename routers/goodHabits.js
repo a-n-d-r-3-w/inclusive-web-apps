@@ -27,4 +27,30 @@ router.post("/habit", async (req, res) => {
   res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
 });
 
+router.get("/habits", async (req, res) => {
+  const username = req.username;
+  const sql =
+    "SELECT * FROM inclusive_web_apps.good_habits_habits WHERE username=?;";
+  const args = [username];
+  const encryptedHabits = await connectQueryEnd(sql, args);
+
+  const encryptionKey = req.encryptionKey;
+  const decryptedHabits = encryptedHabits.map((habit) => ({
+    habitId: habit.habit_id,
+    description: decrypt(habit.encrypted_description, encryptionKey),
+  }));
+  decryptedHabits.sort((habit1, habit2) => {
+    const description1 = habit1.description;
+    const description2 = habit2.description;
+    if (description1 < description2) {
+      return -1;
+    }
+    if (description1 > description2) {
+      return 1;
+    }
+    return 0;
+  });
+  res.status(StatusCodes.OK).send(decryptedHabits);
+});
+
 module.exports = router;
