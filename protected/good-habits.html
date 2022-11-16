@@ -30,19 +30,7 @@
           window.location.replace("/unauthorized.html");
           return;
         }
-        // const habits = await response.json();
-        const habits = [
-          {
-            habitId: "asdf",
-            description: "Push ups",
-            record: "???yy?y",
-          },
-          {
-            habitId: "qwer",
-            description: "Meditate",
-            record: "yy??yy?",
-          },
-        ];
+        const habits = await response.json();
         habits.map((habit) => {
           // Create habit element.
           const habitElement = document.createElement("p");

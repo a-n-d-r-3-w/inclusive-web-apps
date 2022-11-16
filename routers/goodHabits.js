@@ -20,9 +20,9 @@ router.post("/habit", async (req, res) => {
 
   // Save to database.
   const sql =
-    "INSERT INTO inclusive_web_apps.good_habits_habits (username, habit_id, encrypted_description) VALUES (?, ?, ?);";
+    "INSERT INTO inclusive_web_apps.good_habits_habits (username, habit_id, encrypted_description, record) VALUES (?, ?, ?, ?);";
   const habitId = crypto.randomBytes(16).toString("hex");
-  const args = [username, habitId, encryptedDescription];
+  const args = [username, habitId, encryptedDescription, ""];
   await connectQueryEnd(sql, args);
   res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
 });
@@ -38,6 +38,7 @@ router.get("/habits", async (req, res) => {
   const decryptedHabits = encryptedHabits.map((habit) => ({
     habitId: habit.habit_id,
     description: decrypt(habit.encrypted_description, encryptionKey),
+    record: habit.record,
   }));
   decryptedHabits.sort((habit1, habit2) => {
     const description1 = habit1.description;
