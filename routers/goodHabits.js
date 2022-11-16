@@ -55,4 +55,15 @@ router.get("/habits", async (req, res) => {
   res.status(StatusCodes.OK).send(decryptedHabits);
 });
 
+router.put("/habits/:habitId/record", async (req, res) => {
+  const username = req.username;
+  const habitId = req.params.habitId;
+  const newRecord = req.body.newRecord;
+  const sql =
+    "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habitId=?";
+  const args = [newRecord, username, habitId];
+  await connectQueryEnd(sql, args);
+  res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
+});
+
 module.exports = router;
