@@ -66,7 +66,7 @@ router.put("/habits/:habitId/record", bodyParser.json(), async (req, res) => {
     "UPDATE inclusive_web_apps.good_habits_habits SET record=? WHERE username=? AND habit_id=?";
   const args = [newRecord, username, habitId];
   await connectQueryEnd(sql, args);
-  res.redirect(StatusCodes.SEE_OTHER, `/good-habits.html`);
+  res.sendStatus(StatusCodes.NO_CONTENT);
 });
 
 module.exports = router;

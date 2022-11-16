@@ -59,12 +59,26 @@
                 newRecord: "y",
               }),
             });
+            location.reload();
           };
           buttons.appendChild(doneButton);
 
           const notDoneButton = document.createElement("button");
           notDoneButton.textContent = "Not\xa0done";
+          notDoneButton.onclick = async () => {
+            await fetch(`/api/good-habits/habits/${habit.habitId}/record`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                newRecord: "?",
+              }),
+            });
+            location.reload();
+          };
           buttons.appendChild(notDoneButton);
+
           const renameButton = document.createElement("a");
           renameButton.href = "";
           renameButton.textContent = "Rename";
