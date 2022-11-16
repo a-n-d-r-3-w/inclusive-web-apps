@@ -58,6 +58,22 @@ router.get("/habits", async (req, res) => {
   res.status(StatusCodes.OK).send(decryptedHabits);
 });
 
+// Get habit description.
+router.get("/habit/:habitId", async (req, res) => {
+  const username = req.username;
+  const habitId = req.params.habitId;
+  const sql =
+    "SELECT encrypted_description FROM inclusive_web_apps.good_habits_habits WHERE username=? and habit_id=?";
+  const args = [username, habitId];
+  const habit = (await connectQueryEnd(sql, args))[0];
+
+  const encryptionKey = req.encryptionKey;
+  const description = decrypt(habit.encrypted_description, encryptionKey);
+  res.status(StatusCodes.OK).send({
+    description,
+  });
+});
+
 router.put("/habits/:habitId/record", bodyParser.json(), async (req, res) => {
   const username = req.username;
   const habitId = req.params.habitId;

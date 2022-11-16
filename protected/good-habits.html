@@ -84,7 +84,7 @@
           buttons.appendChild(notDoneButton);
 
           const editButton = document.createElement("a");
-          editButton.href = "/good-habits/habit/edit.html";
+          editButton.href = `/good-habits/habit/edit.html?habit-id=${habit.habitId}`;
           editButton.textContent = "Edit";
           buttons.appendChild(editButton);
 
