@@ -16,12 +16,7 @@
     </nav>
     <main>
       <h1>Meditation Timer</h1>
-      <p>
-        If your web browser is Chrome, Edge, Opera, or Samsung Internet, this
-        app will keep the device screen awake so that the timer works as
-        expected. Otherwise, please make sure your computer's screensaver or
-        sleep mode does not start before the timer ends.
-      </p>
+      <p id="note-about-wake-lock"></p>
       <p
         id="time-left"
         style="text-align: center; font-size: 5rem; margin: 0"
@@ -140,6 +135,12 @@
       }
 
       updateTimeDisplay();
+
+      // Check if the Screen Wake Lock API is supported.
+      if (!navigator.wakeLock) {
+        document.getElementById("note-about-wake-lock").textContent =
+          "On Chrome, Edge, Opera, and Samsung Internet, the timer keeps the device screen awake so that it works as expected. On other browsers, please make sure your computer's screensaver or sleep mode does not start before the timer ends.";
+      }
     </script>
   </body>
 </html>
